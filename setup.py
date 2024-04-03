@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="authlit",
-    version="0.1.1",
+    version="0.1.2",
     author="Badal Sahani",
     author_email="badalsahani8381@gmail.com",
     description="A streamlit library which provides a Login/Sign-Up UI with an option to reset password, also supports cookies.",

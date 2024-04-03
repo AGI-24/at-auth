@@ -11,24 +11,25 @@ if SQL_AUTH:
         engine = create_engine("sqlite:///auth.db")
         Base.metadata.create_all(engine)
         Session = sessionmaker(bind=engine)
-    if not DB_DATABASE:
-        raise ValueError("Please set the environment variable for DB_DATABASE.")
-    if not DB_HOST:
-        raise ValueError("Please set the environment variable for DB_HOST.")
-    if not DB_PASSWORD:
-        raise ValueError("Please set the environment variable for DB_PASSWORD.")
-    if not DB_PORT:
-        raise ValueError("Please set the environment variable for DB_PORT.")
-    if not DB_USERNAME:
-        raise ValueError("Please set the environment variable for DB_USERNAME.")
     else:
-        username = quote_plus(DB_USERNAME)
-        password = quote_plus(DB_PASSWORD)
-        engine = create_engine(
-            f"mysql+pymysql://{username}:{password}@{DB_HOST}:{DB_PORT}/{DB_DATABASE}"
-        )
-        Base.metadata.create_all(engine)
-        Session = sessionmaker(bind=engine)
+        if not DB_DATABASE:
+            raise ValueError("Please set the environment variable for DB_DATABASE.")
+        if not DB_HOST:
+            raise ValueError("Please set the environment variable for DB_HOST.")
+        if not DB_PASSWORD:
+            raise ValueError("Please set the environment variable for DB_PASSWORD.")
+        if not DB_PORT:
+            raise ValueError("Please set the environment variable for DB_PORT.")
+        if not DB_USERNAME:
+            raise ValueError("Please set the environment variable for DB_USERNAME.")
+        else:
+            username = quote_plus(DB_USERNAME)
+            password = quote_plus(DB_PASSWORD)
+            engine = create_engine(
+                f"mysql+pymysql://{username}:{password}@{DB_HOST}:{DB_PORT}/{DB_DATABASE}"
+            )
+            Base.metadata.create_all(engine)
+            Session = sessionmaker(bind=engine)
 
 
 def authenticate_with_sql(username: str, password: str) -> bool:
